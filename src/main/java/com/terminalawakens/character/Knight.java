@@ -1,10 +1,15 @@
 package com.terminalawakens.character;
 
-public class Knight extends Character {
+import com.terminalawakens.creatures.Monster;
 
-    private final String attackType = "sword";
+public class Knight extends Character {
 
     public Knight(String name) {
         super(name,120, 30, 10, 15, 15);
+    }
+
+    @Override
+    public void performSpecialAttack(Monster target) {
+        castSpell(target,10, "Power Strike");
     }
 }

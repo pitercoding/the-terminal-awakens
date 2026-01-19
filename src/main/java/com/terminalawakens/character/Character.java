@@ -61,11 +61,11 @@ public abstract class Character {
         target.takeDamage(basicAttack);
     }
 
-    public void performSpecialAttack(Monster target) {
-        int manaCost = 10;
+    public abstract void performSpecialAttack(Monster target);
 
+    protected void castSpell(Monster target, int manaCost, String spellName) {
         if (currentMana >= manaCost) {
-            System.out.println(name + " uses a special attack!");
+            System.out.println(name + " casts " + spellName + "!");
             target.takeDamage(specialAttack);
             currentMana -= manaCost;
         } else {
