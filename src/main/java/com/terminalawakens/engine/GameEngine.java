@@ -98,7 +98,7 @@ public class GameEngine {
         System.out.println("\nYou venture forward into the darkness...");
 
         Monster monster = MonsterFactory.spawnRandomMonster();
-        System.out.println("A wild " + monster.getName() + " appears!");
+        System.out.println("\nA wild " + monster.getName() + " appears!");
 
         CombatEngine.battle(player, monster);
     }
