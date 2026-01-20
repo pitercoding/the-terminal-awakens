@@ -1,6 +1,8 @@
 package com.terminalawakens.combat;
 
 import com.terminalawakens.character.Character;
+import com.terminalawakens.character.Druid;
+import com.terminalawakens.character.Sorcerer;
 import com.terminalawakens.creatures.Monster;
 
 import java.util.Scanner;
@@ -24,10 +26,14 @@ public class CombatEngine {
 
             switch (choice) {
                 case 1 -> player.performBasicAttack(monster);
-
                 case 2 -> player.performSpecialAttack(monster);
-
                 case 3 -> {
+                    if (player instanceof Sorcerer sorcerer) sorcerer.toggleManaShield();
+                    else if (player instanceof Druid druid) druid.toggleManaShield();
+                    else System.out.println("Mana Shield not available for your vocation.\n");
+                    continue; // não perde o turno
+                }
+                case 4 -> {
                     if (attemptEscape()) {
                         System.out.println(player.getName() + " successfully escaped!");
                         return; // sai do combate
@@ -35,7 +41,6 @@ public class CombatEngine {
                         System.out.println(player.getName() + " failed to escape!");
                     }
                 }
-
                 default -> {
                     System.out.println("Invalid option!");
                     continue; // não perde o turno
@@ -74,7 +79,8 @@ public class CombatEngine {
         System.out.println("Choose your action:");
         System.out.println("1 - Basic Attack");
         System.out.println("2 - Special Attack");
-        System.out.println("3 - Run");
+        System.out.println("3 - Toggle Mana Shield");
+        System.out.println("4 - Run");
         System.out.print("Your choice: ");
     }
 

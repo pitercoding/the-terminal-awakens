@@ -75,8 +75,17 @@ public abstract class Character {
 
     public void takeDamage(int damage) {
         int actualDamage = Math.max(0, damage - defense);
+
+        // Aplicar mana shield se a subclasse quiser
+        actualDamage = applyManaShield(actualDamage);
+
         currentHealth = Math.max(0, currentHealth - actualDamage);
         System.out.println(name + " took " + actualDamage + " damage. Current HP: " + currentHealth);
+    }
+
+    // Subclasses podem sobrescrever se quiserem
+    protected int applyManaShield(int damage) {
+        return damage;
     }
 
     public boolean isAlive() {
