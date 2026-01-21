@@ -4,25 +4,25 @@ import com.terminalawakens.creatures.Monster;
 
 public class Druid extends Character {
 
-    private boolean manaShieldActive = false; // por padrão desativado
+    private boolean manaShieldActive = false;
 
     public Druid(String name) {
-        super (name, 70, 100, 15, 20, 10);
+        super(name, 70, 100, 15, 20, 10);
     }
 
     @Override
     public void performSpecialAttack(Monster target) {
-        castSpell(target,20, "Nature's Wrath");
+        castSpell(target, 20, "Nature's Wrath");
     }
 
     public void toggleManaShield() {
         manaShieldActive = !manaShieldActive;
-        System.out.println(name + " has " + (manaShieldActive ? "activated" : "deactivated") + " Mana Shield!\n");
+        System.out.println("\uD83D\uDEE1\uFE0F " + name + " has " + (manaShieldActive ? "activated" : "deactivated") + " Mana Shield!\n");
     }
 
     @Override
     protected int applyManaShield(int damage) {
-        if (!manaShieldActive) return damage; // não absorve dano
+        if (!manaShieldActive) return damage;
         if (currentMana > 0) {
             int manaAbsorb = Math.min(currentMana, damage);
             currentMana -= manaAbsorb;

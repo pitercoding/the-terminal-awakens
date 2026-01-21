@@ -38,43 +38,18 @@ public abstract class Character {
     }
 
     // =========== Getters =========== //
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public int getCurrentHealth() { return currentHealth; }
+    public int getMaxHealth() { return maxHealth; }
+    public int getCurrentMana() { return currentMana; }
+    public int getMaxMana() { return maxMana; }
+    public int getBasicAttack() { return basicAttack; }
+    public int getSpecialAttack() { return specialAttack; }
+    public int getDefense() { return defense; }
 
-    public int getCurrentHealth() {
-        return currentHealth;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public int getCurrentMana() {
-        return currentMana;
-    }
-
-    public int getMaxMana() {
-        return maxMana;
-    }
-
-    public int getBasicAttack() {
-        return basicAttack;
-    }
-
-    public int getSpecialAttack() {
-        return specialAttack;
-    }
-
-    public int getDefense() {
-        return defense;
-    }
-
-    // =========== Special Methods =========== //
-
-    // ---- Attack --- //
+    // =========== Attack Methods =========== //
     public void performBasicAttack(Monster target) {
-        System.out.println(name + " attacks with a basic attack!");
+        System.out.println("\n" + name + " uses Basic Attack!");
         target.takeDamage(basicAttack);
     }
 
@@ -82,39 +57,31 @@ public abstract class Character {
 
     protected void castSpell(Monster target, int manaCost, String spellName) {
         if (currentMana >= manaCost) {
-            System.out.println(name + " casts " + spellName + "!");
+            System.out.println("\n" + name + " casts " + spellName + "!");
             target.takeDamage(specialAttack);
             currentMana -= manaCost;
         } else {
-            System.out.println(name + " doesn't have enough mana!");
+            System.out.println("\n" + name + " doesn't have enough mana to cast " + spellName + "!");
         }
     }
 
-    // ---- Receiving Damage --- //
+    // =========== Damage Handling =========== //
     public void takeDamage(int damage) {
         int actualDamage = Math.max(0, damage - defense);
-
-        // Aplicar mana shield se a subclasse quiser
         actualDamage = applyManaShield(actualDamage);
 
         currentHealth = Math.max(0, currentHealth - actualDamage);
         System.out.println(name + " took " + actualDamage + " damage. Current HP: " + currentHealth);
     }
 
-    // Subclasses podem sobrescrever se quiserem
-    protected int applyManaShield(int damage) {
-        return damage;
-    }
+    protected int applyManaShield(int damage) { return damage; }
 
-    // ---- Alive or Dead --- //
-    public boolean isAlive() {
-        return currentHealth > 0;
-    }
+    public boolean isAlive() { return currentHealth > 0; }
 
-    // ---- XP & Level ---- //
+    // =========== XP & Level =========== //
     public void gainXp(int amount) {
+        System.out.println("\n🎉 " + name + " gained " + amount + " XP!");
         currentXp += amount;
-        System.out.println(name + " gained " + amount + " XP.");
 
         while (currentXp >= xpToNextLevel) {
             levelUp();
@@ -129,7 +96,7 @@ public abstract class Character {
         increaseStats();
         restoreResources();
 
-        System.out.println("✨ LEVEL UP! " + name + " reached level " + level + "!");
+        System.out.println("\n✨ LEVEL UP! " + name + " reached Level " + level + "!");
     }
 
     protected void restoreResources() {
@@ -145,7 +112,7 @@ public abstract class Character {
         defense += 1;
     }
 
-    // ---- Healing ---- //
+    // =========== Healing =========== //
     public void heal(int amount) {
         if (currentHealth == 0) {
             System.out.println(name + " cannot be healed (defeated).");
@@ -155,37 +122,34 @@ public abstract class Character {
         int healed = Math.min(amount, maxHealth - currentHealth);
         currentHealth += healed;
 
-        System.out.println(name + " healed " + healed + " HP. Current HP: " + currentHealth);
+        System.out.println("\n💖 " + name + " healed " + healed + " HP. Current HP: " + currentHealth);
     }
 
     public void restoreMana(int amount) {
         int restored = Math.min(amount, maxMana - currentMana);
         currentMana += restored;
 
-        System.out.println("\n" + name + " restored " + restored + " Mana. Current Mana: " + currentMana + "\n");
+        System.out.println("\n🔮 " + name + " restored " + restored + " Mana. Current Mana: " + currentMana + "\n");
     }
 
-    // ---- Inventory ---- //
+    // =========== Inventory =========== //
     public void addItem(Item item) {
         inventory.add(item);
-        System.out.println(name + " obtained: " + item.getName());
+        System.out.println("\n📦 " + name + " obtained: " + item.getName());
     }
 
-    public boolean hasItems() {
-        return !inventory.isEmpty();
-    }
+    public boolean hasItems() { return !inventory.isEmpty(); }
 
     public void showInventory() {
         System.out.println("\n--- Inventory ---");
-
         if (inventory.isEmpty()) {
             System.out.println("Empty");
             return;
         }
-
         for (int i = 0; i < inventory.size(); i++) {
             System.out.println((i + 1) + " - " + inventory.get(i).getName());
         }
+        System.out.println("----------------\n");
     }
 
     public void useItem(int index) {

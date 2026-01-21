@@ -2,7 +2,7 @@ package com.terminalawakens.character;
 
 import com.terminalawakens.creatures.Monster;
 
-public class Paladin extends Character{
+public class Paladin extends Character {
 
     public Paladin(String name) {
         super(name, 90, 60, 15, 17, 10);
@@ -10,7 +10,8 @@ public class Paladin extends Character{
 
     @Override
     public void performSpecialAttack(Monster target) {
-        castSpell(target,15, "Divine Caldera");
+        System.out.println("\n✨ " + name + " uses Divine Caldera!");
+        castSpell(target, 15, "Divine Caldera");
     }
 
     @Override
