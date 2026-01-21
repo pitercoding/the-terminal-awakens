@@ -1,6 +1,8 @@
 package com.terminalawakens.character;
 
 import com.terminalawakens.creatures.Monster;
+import com.terminalawakens.equipment.Armor;
+import com.terminalawakens.equipment.Weapon;
 import com.terminalawakens.items.Item;
 
 import java.util.ArrayList;
@@ -21,6 +23,9 @@ public abstract class Character {
     protected int xpToNextLevel;
     protected List<Item> inventory;
     protected String basicWeapon;
+    protected Weapon equippedWeapon;
+    protected Armor equippedArmor;
+
 
     // =========== Constructor =========== //
     public Character(String name, int maxHealth, int maxMana, int basicAttack, int specialAttack, int defense) {
@@ -167,4 +172,52 @@ public abstract class Character {
         Item item = inventory.remove(index);
         item.use(this);
     }
+
+    // =========== Equipments =========== //
+    public void equipWeapon(Weapon weapon) {
+        if (equippedWeapon != null) {
+            unequipWeapon();
+        }
+
+        equippedWeapon = weapon;
+        basicAttack += weapon.getBonusAttack();
+
+        System.out.println("\n⚔️ Equipped weapon: " + weapon.getName());
+    }
+
+    public void unequipWeapon() {
+        if (equippedWeapon == null) return;
+
+        basicAttack -= equippedWeapon.getBonusAttack();
+        System.out.println("\n⚔️ Unequipped weapon: " + equippedWeapon.getName());
+        equippedWeapon = null;
+    }
+
+    public void equipArmor(Armor armor) {
+        if (equippedArmor != null) {
+            unequipArmor();
+        }
+
+        equippedArmor = armor;
+        maxHealth += armor.getBonusHealth();
+        defense += armor.getBonusDefense();
+
+        System.out.println("\n🛡️ Equipped armor: " + armor.getName());
+    }
+
+    public void unequipArmor() {
+        if (equippedArmor == null) return;
+
+        maxHealth -= equippedArmor.getBonusHealth();
+        defense -= equippedArmor.getBonusDefense();
+
+        if (currentHealth > maxHealth) {
+            currentHealth = maxHealth;
+        }
+
+        System.out.println("\n🛡️ Unequipped armor: " + equippedArmor.getName());
+        equippedArmor = null;
+    }
+
+
 }

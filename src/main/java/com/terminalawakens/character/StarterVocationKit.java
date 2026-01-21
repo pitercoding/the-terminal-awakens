@@ -1,42 +1,42 @@
 package com.terminalawakens.character;
 
+import com.terminalawakens.equipment.Bow;
+import com.terminalawakens.equipment.Rod;
+import com.terminalawakens.equipment.Sword;
+import com.terminalawakens.equipment.Wand;
 import com.terminalawakens.items.HealthPotion;
 import com.terminalawakens.items.ManaPotion;
 
 public class StarterVocationKit {
 
     public static void applyKit(Character character) {
-        String vocation = character.getClass().getSimpleName();
 
-        switch (vocation) {
-            case "Knight" -> {
-                character.setBasicWeapon("Sword");
-                character.addItem(new HealthPotion());
-                character.addItem(new HealthPotion());
-                character.addItem(new ManaPotion());
-            }
-            case "Paladin" -> {
-                character.setBasicWeapon("Arrow");
-                character.addItem(new HealthPotion());
-                character.addItem(new ManaPotion());
-                character.addItem(new ManaPotion());
-            }
-            case "Druid" -> {
-                character.setBasicWeapon("Rod");
-                character.addItem(new HealthPotion());
-                character.addItem(new ManaPotion());
-                character.addItem(new ManaPotion());
-                character.addItem(new ManaPotion());
-            }
-            case "Sorcerer" -> {
-                character.setBasicWeapon("Wand");
-                character.addItem(new HealthPotion());
-                character.addItem(new ManaPotion());
-                character.addItem(new ManaPotion());
-                character.addItem(new ManaPotion());
-                character.addItem(new ManaPotion());
-            }
-            default -> System.out.println("No starter kit defined for " + vocation);
+        if (character instanceof Knight) {
+            character.equipWeapon(new Sword());
+            character.addItem(new HealthPotion());
+            character.addItem(new HealthPotion());
+            character.addItem(new ManaPotion());
+
+        } else if (character instanceof Paladin) {
+            character.equipWeapon(new Bow());
+            character.addItem(new HealthPotion());
+            character.addItem(new ManaPotion());
+            character.addItem(new ManaPotion());
+
+        } else if (character instanceof Druid) {
+            character.equipWeapon(new Rod());
+            character.addItem(new HealthPotion());
+            character.addItem(new ManaPotion());
+            character.addItem(new ManaPotion());
+            character.addItem(new ManaPotion());
+
+        } else if (character instanceof Sorcerer) {
+            character.equipWeapon(new Wand());
+            character.addItem(new HealthPotion());
+            character.addItem(new ManaPotion());
+            character.addItem(new ManaPotion());
+            character.addItem(new ManaPotion());
+            character.addItem(new ManaPotion());
         }
     }
 }

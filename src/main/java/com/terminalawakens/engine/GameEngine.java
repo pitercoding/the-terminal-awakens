@@ -4,8 +4,6 @@ import com.terminalawakens.character.*;
 import com.terminalawakens.character.Character;
 import com.terminalawakens.creatures.Monster;
 import com.terminalawakens.creatures.MonsterFactory;
-import com.terminalawakens.items.HealthPotion;
-import com.terminalawakens.items.ManaPotion;
 
 import java.util.Scanner;
 
@@ -17,8 +15,8 @@ public class GameEngine {
     public GameEngine() {
         this.scanner = new Scanner(System.in);
         createPlayer();
+        StarterVocationKit.applyKit(player);
         showPlayerStatus();
-        giveStarterItems();
     }
 
     private void createPlayer() {
@@ -53,12 +51,12 @@ public class GameEngine {
             case 4 -> player = new Sorcerer(characterName);
         }
 
-        System.out.println("\n\"" + catchPhrase + "\"");
+        System.out.println("\n" + player.getName() + " says: \"" + catchPhrase + "\"");
         System.out.println("🌟 A new hero awakens...\n");
     }
 
     private void showPlayerStatus() {
-        System.out.println("=== Character Status ===");
+        System.out.println("\n=== Character Status ===");
         System.out.println("Name: " + player.getName());
         System.out.println("Vocation: " + player.getClass().getSimpleName());
         System.out.println("HP: " + player.getCurrentHealth() + "/" + player.getMaxHealth());
@@ -98,9 +96,5 @@ public class GameEngine {
         System.out.println("⚔️ A wild " + monster.getName() + " appears!\n");
 
         CombatEngine.battle(player, monster);
-    }
-
-    private void giveStarterItems() {
-        StarterVocationKit.applyKit(player);
     }
 }
