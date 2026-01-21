@@ -20,8 +20,9 @@ public abstract class Character {
     protected int currentXp;
     protected int xpToNextLevel;
     protected List<Item> inventory;
+    protected String basicWeapon;
 
-    // =========== Construtor =========== //
+    // =========== Constructor =========== //
     public Character(String name, int maxHealth, int maxMana, int basicAttack, int specialAttack, int defense) {
         this.name = name;
         this.maxHealth = maxHealth;
@@ -35,6 +36,7 @@ public abstract class Character {
         this.currentXp = 0;
         this.xpToNextLevel = 100;
         this.inventory = new ArrayList<>();
+        this.basicWeapon = "Fists"; // default
     }
 
     // =========== Getters =========== //
@@ -46,10 +48,14 @@ public abstract class Character {
     public int getBasicAttack() { return basicAttack; }
     public int getSpecialAttack() { return specialAttack; }
     public int getDefense() { return defense; }
+    public String getBasicWeapon() { return basicWeapon; }
+
+    // =========== Setters =========== //
+    public void setBasicWeapon(String weapon) { this.basicWeapon = weapon; }
 
     // =========== Attack Methods =========== //
     public void performBasicAttack(Monster target) {
-        System.out.println("\n" + name + " uses Basic Attack!");
+        System.out.println("\n" + name + " attacks with " + basicWeapon + "!");
         target.takeDamage(basicAttack);
     }
 

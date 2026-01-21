@@ -101,8 +101,6 @@ public class GameEngine {
     }
 
     private void giveStarterItems() {
-        player.addItem(new HealthPotion());
-        player.addItem(new ManaPotion());
-        player.addItem(new ManaPotion());
+        StarterVocationKit.applyKit(player);
     }
 }
