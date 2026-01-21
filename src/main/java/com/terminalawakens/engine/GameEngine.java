@@ -5,6 +5,8 @@ import com.terminalawakens.character.Character;
 import com.terminalawakens.combat.CombatEngine;
 import com.terminalawakens.creatures.Monster;
 import com.terminalawakens.creatures.MonsterFactory;
+import com.terminalawakens.items.HealthPotion;
+import com.terminalawakens.items.ManaPotion;
 
 import java.util.Scanner;
 
@@ -17,6 +19,7 @@ public class GameEngine {
         this.scanner = new Scanner(System.in);
         createPlayer();
         showPlayerStatus();
+        giveStarterItems();
     }
 
     private void createPlayer() {
@@ -101,5 +104,11 @@ public class GameEngine {
         System.out.println("\nA wild " + monster.getName() + " appears!");
 
         CombatEngine.battle(player, monster);
+    }
+
+    private void giveStarterItems() {
+        player.addItem(new HealthPotion());
+        player.addItem(new ManaPotion());
+        player.addItem(new ManaPotion());
     }
 }

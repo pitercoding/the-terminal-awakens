@@ -28,12 +28,26 @@ public class CombatEngine {
                 case 1 -> player.performBasicAttack(monster);
                 case 2 -> player.performSpecialAttack(monster);
                 case 3 -> {
+                    if (!player.hasItems()) {
+                        System.out.println("Your inventory is empty.\n");
+                        continue;
+                    }
+
+                    player.showInventory();
+                    System.out.print("Choose an item: ");
+
+                    int itemChoice = scanner.nextInt() - 1;
+                    player.useItem(itemChoice);
+
+                    continue; // Using an item does NOT lose a turn (design decision)
+                }
+                case 4 -> {
                     if (player instanceof Sorcerer sorcerer) sorcerer.toggleManaShield();
                     else if (player instanceof Druid druid) druid.toggleManaShield();
                     else System.out.println("Mana Shield not available for your vocation.\n");
                     continue; // não perde o turno
                 }
-                case 4 -> {
+                case 5 -> {
                     if (attemptEscape()) {
                         System.out.println(player.getName() + " successfully escaped!");
                         return; // sai do combate
@@ -80,8 +94,9 @@ public class CombatEngine {
         System.out.println("Choose your action:");
         System.out.println("1 - Basic Attack");
         System.out.println("2 - Special Attack");
-        System.out.println("3 - Toggle Mana Shield");
-        System.out.println("4 - Run");
+        System.out.println("3 - Use Item");
+        System.out.println("4 - Toggle Mana Shield");
+        System.out.println("5 - Run");
         System.out.print("Your choice: ");
     }
 

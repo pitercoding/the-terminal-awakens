@@ -1,6 +1,10 @@
 package com.terminalawakens.character;
 
 import com.terminalawakens.creatures.Monster;
+import com.terminalawakens.items.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Character {
 
@@ -15,7 +19,9 @@ public abstract class Character {
     protected int level;
     protected int currentXp;
     protected int xpToNextLevel;
+    protected List<Item> inventory;
 
+    // =========== Construtor =========== //
     public Character(String name, int maxHealth, int maxMana, int basicAttack, int specialAttack, int defense) {
         this.name = name;
         this.maxHealth = maxHealth;
@@ -28,8 +34,10 @@ public abstract class Character {
         this.level = 1;
         this.currentXp = 0;
         this.xpToNextLevel = 100;
+        this.inventory = new ArrayList<>();
     }
 
+    // =========== Getters =========== //
     public String getName() {
         return name;
     }
@@ -62,7 +70,7 @@ public abstract class Character {
         return defense;
     }
 
-    // =========== Métodos Especiais =========== //
+    // =========== Special Methods =========== //
 
     // ---- Attack --- //
     public void performBasicAttack(Monster target) {
@@ -82,7 +90,7 @@ public abstract class Character {
         }
     }
 
-    // ---- Tomar Dano --- //
+    // ---- Receiving Damage --- //
     public void takeDamage(int damage) {
         int actualDamage = Math.max(0, damage - defense);
 
@@ -98,12 +106,12 @@ public abstract class Character {
         return damage;
     }
 
-    // ---- Vivo ou Morto? --- //
+    // ---- Alive or Dead --- //
     public boolean isAlive() {
         return currentHealth > 0;
     }
 
-    // ---- XP e Level ---- //
+    // ---- XP & Level ---- //
     public void gainXp(int amount) {
         currentXp += amount;
         System.out.println(name + " gained " + amount + " XP.");
@@ -135,5 +143,58 @@ public abstract class Character {
         basicAttack += 2;
         specialAttack += 2;
         defense += 1;
+    }
+
+    // ---- Healing ---- //
+    public void heal(int amount) {
+        if (currentHealth == 0) {
+            System.out.println(name + " cannot be healed (defeated).");
+            return;
+        }
+
+        int healed = Math.min(amount, maxHealth - currentHealth);
+        currentHealth += healed;
+
+        System.out.println(name + " healed " + healed + " HP. Current HP: " + currentHealth);
+    }
+
+    public void restoreMana(int amount) {
+        int restored = Math.min(amount, maxMana - currentMana);
+        currentMana += restored;
+
+        System.out.println("\n" + name + " restored " + restored + " Mana. Current Mana: " + currentMana + "\n");
+    }
+
+    // ---- Inventory ---- //
+    public void addItem(Item item) {
+        inventory.add(item);
+        System.out.println(name + " obtained: " + item.getName());
+    }
+
+    public boolean hasItems() {
+        return !inventory.isEmpty();
+    }
+
+    public void showInventory() {
+        System.out.println("\n--- Inventory ---");
+
+        if (inventory.isEmpty()) {
+            System.out.println("Empty");
+            return;
+        }
+
+        for (int i = 0; i < inventory.size(); i++) {
+            System.out.println((i + 1) + " - " + inventory.get(i).getName());
+        }
+    }
+
+    public void useItem(int index) {
+        if (index < 0 || index >= inventory.size()) {
+            System.out.println("Invalid item.");
+            return;
+        }
+
+        Item item = inventory.remove(index);
+        item.use(this);
     }
 }
