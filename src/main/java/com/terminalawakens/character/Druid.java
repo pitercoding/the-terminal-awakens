@@ -30,4 +30,13 @@ public class Druid extends Character {
         }
         return damage;
     }
+
+    @Override
+    protected void increaseStats() {
+        maxHealth += 5;
+        maxMana += 30;
+        basicAttack += 1;
+        specialAttack += 4;
+        defense += 1;
+    }
 }

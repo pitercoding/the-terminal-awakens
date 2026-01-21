@@ -55,9 +55,10 @@ public class CombatEngine {
 
         if (player.isAlive()) {
             System.out.println(player.getName() + " won!");
+            player.gainXp(monster.getXpReward());
+
             System.out.println(
                     player.getName() + " earned " +
-                            monster.getXpReward() + " XP and " +
                             monster.getGoldReward() + " gold."
             );
         } else {

@@ -12,4 +12,13 @@ public class Knight extends Character {
     public void performSpecialAttack(Monster target) {
         castSpell(target,10, "Power Strike");
     }
+
+    @Override
+    protected void increaseStats() {
+        maxHealth += 15;
+        maxMana += 5;
+        basicAttack += 3;
+        specialAttack += 1;
+        defense += 2;
+    }
 }

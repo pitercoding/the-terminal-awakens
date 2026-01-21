@@ -12,6 +12,9 @@ public abstract class Character {
     protected int basicAttack;
     protected int specialAttack;
     protected int defense;
+    protected int level;
+    protected int currentXp;
+    protected int xpToNextLevel;
 
     public Character(String name, int maxHealth, int maxMana, int basicAttack, int specialAttack, int defense) {
         this.name = name;
@@ -22,6 +25,9 @@ public abstract class Character {
         this.basicAttack = basicAttack;
         this.specialAttack = specialAttack;
         this.defense = defense;
+        this.level = 1;
+        this.currentXp = 0;
+        this.xpToNextLevel = 100;
     }
 
     public String getName() {
@@ -56,6 +62,9 @@ public abstract class Character {
         return defense;
     }
 
+    // =========== Métodos Especiais =========== //
+
+    // ---- Attack --- //
     public void performBasicAttack(Monster target) {
         System.out.println(name + " attacks with a basic attack!");
         target.takeDamage(basicAttack);
@@ -73,6 +82,7 @@ public abstract class Character {
         }
     }
 
+    // ---- Tomar Dano --- //
     public void takeDamage(int damage) {
         int actualDamage = Math.max(0, damage - defense);
 
@@ -88,7 +98,42 @@ public abstract class Character {
         return damage;
     }
 
+    // ---- Vivo ou Morto? --- //
     public boolean isAlive() {
         return currentHealth > 0;
+    }
+
+    // ---- XP e Level ---- //
+    public void gainXp(int amount) {
+        currentXp += amount;
+        System.out.println(name + " gained " + amount + " XP.");
+
+        while (currentXp >= xpToNextLevel) {
+            levelUp();
+        }
+    }
+
+    public void levelUp() {
+        currentXp -= xpToNextLevel;
+        level++;
+        xpToNextLevel = (int) (xpToNextLevel * 1.5);
+
+        increaseStats();
+        restoreResources();
+
+        System.out.println("✨ LEVEL UP! " + name + " reached level " + level + "!");
+    }
+
+    protected void restoreResources() {
+        currentHealth = maxHealth;
+        currentMana = maxMana;
+    }
+
+    protected void increaseStats() {
+        maxHealth += 10;
+        maxMana += 5;
+        basicAttack += 2;
+        specialAttack += 2;
+        defense += 1;
     }
 }

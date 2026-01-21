@@ -12,4 +12,13 @@ public class Paladin extends Character{
     public void performSpecialAttack(Monster target) {
         castSpell(target,15, "Divine Caldera");
     }
+
+    @Override
+    protected void increaseStats() {
+        maxHealth += 10;
+        maxMana += 15;
+        basicAttack += 3;
+        specialAttack += 1;
+        defense += 2;
+    }
 }
