@@ -64,6 +64,13 @@ public class GameEngine {
         System.out.println("Basic Attack: " + player.getBasicAttack());
         System.out.println("Special Attack: " + player.getSpecialAttack());
         System.out.println("Defense: " + player.getDefense());
+
+        String weaponName = (player.getEquippedWeapon() != null)
+                ? player.getEquippedWeapon().getName()
+                : "None";
+
+        System.out.println("Weapon: " + weaponName);
+        System.out.println("Gold: " + player.getGold());
     }
 
     public void start() {

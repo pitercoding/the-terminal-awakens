@@ -42,7 +42,6 @@ public abstract class Character {
         this.currentXp = 0;
         this.xpToNextLevel = 100;
         this.inventory = new ArrayList<>();
-        this.basicWeapon = "Fists"; // default
         this.gold = 0;
     }
 
@@ -55,18 +54,19 @@ public abstract class Character {
     public int getBasicAttack() { return basicAttack; }
     public int getSpecialAttack() { return specialAttack; }
     public int getDefense() { return defense; }
-    public String getBasicWeapon() { return basicWeapon; }
     public int getGold() { return gold; }
-
-    // =========== Setters =========== //
-    public void setBasicWeapon(String weapon) { this.basicWeapon = weapon; }
-
+    public Weapon getEquippedWeapon() {return equippedWeapon; }
+    public Armor getEquippedArmor() { return equippedArmor; }
 
     // ************** SPECIAL METHODS ************** //
 
     // =========== Attack =========== //
     public void performBasicAttack(Monster target) {
-        System.out.println("\n" + name + " attacks with " + basicWeapon + "!");
+        String weaponName = (equippedWeapon != null)
+                ? equippedWeapon.getName()
+                : "Fists";
+
+        System.out.println("\n⚔️ " + name + " attacks with " + weaponName + "!");
         target.takeDamage(basicAttack);
     }
 

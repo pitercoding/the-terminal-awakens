@@ -89,9 +89,14 @@ public class CombatEngine {
 
     private static void showStatus(Character player, Monster monster) {
         System.out.println("--- Combat Status ---");
+        String weaponName = (player.getEquippedWeapon() != null)
+                ? player.getEquippedWeapon().getName()
+                : "Fists";
+
         System.out.println(player.getName() +
                 " | HP: " + player.getCurrentHealth() + "/" + player.getMaxHealth() +
-                " | Mana: " + player.getCurrentMana() + "/" + player.getMaxMana());
+                " | Mana: " + player.getCurrentMana() + "/" + player.getMaxMana() +
+                " | Weapon: " + weaponName);
         System.out.println(monster.getName() +
                 " | HP: " + monster.getCurrentHealth() + "/" + monster.getMaxHealth());
         System.out.println("---------------------\n");
