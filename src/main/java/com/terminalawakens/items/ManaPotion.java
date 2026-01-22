@@ -4,10 +4,16 @@ import com.terminalawakens.character.Character;
 
 public class ManaPotion extends Item {
 
-    private int manaAmount = 40;
+    private int manaAmount;
 
     public ManaPotion() {
         super("Mana Potion");
+        this.manaAmount = 40; // default
+    }
+
+    public ManaPotion(int manaAmount) {
+        super("Mana Potion");
+        this.manaAmount = manaAmount;
     }
 
     @Override
