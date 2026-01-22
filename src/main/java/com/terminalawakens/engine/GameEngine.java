@@ -9,6 +9,7 @@ import com.terminalawakens.equipment.Weapon;
 import com.terminalawakens.items.Item;
 import com.terminalawakens.items.ItemFactory;
 import com.terminalawakens.shop.Shop;
+import com.terminalawakens.util.messages.GameEnd;
 import com.terminalawakens.util.messages.GameStart;
 import com.terminalawakens.util.messages.Portraits;
 import com.terminalawakens.util.messages.SlowConsole;
@@ -252,8 +253,10 @@ public class GameEngine {
 
         if (player.isAlive()) {
             System.out.println("🏆 You defeated the Terminal Of Vortex!");
-            System.out.println("✨ The world is free. You win!");
-            System.exit(0);
+
+            // ================== LORE FINAL ==================
+            GameEnd.finishTerminalOfVortex(player.getName());
+            System.exit(0); // encerra o jogo após a lore final
         }
     }
 
