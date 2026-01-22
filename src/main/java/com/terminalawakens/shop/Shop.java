@@ -15,7 +15,6 @@ public class Shop {
     }
 
     public void showItems() {
-        System.out.println("\n=== Welcome to the Shop ===");
         for (int i = 0; i < availableItems.size(); i++) {
             System.out.println((i + 1) + " - " + availableItems.get(i).getName()
                     + " | Price: " + itemPrices.get(i) + " gold");

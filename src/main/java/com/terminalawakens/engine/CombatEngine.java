@@ -57,7 +57,7 @@ public class CombatEngine {
                 }
                 case 5 -> {
                     if (attemptEscape()) {
-                        System.out.println("🏃 " + player.getName() + " successfully escaped!");
+                        System.out.println("🏃 " + player.getName() + " successfully escaped!\n");
                         return;
                     } else {
                         System.out.println("🏃 " + player.getName() + " failed to escape!\n");
@@ -94,11 +94,15 @@ public class CombatEngine {
                 : "Fists";
 
         System.out.println(player.getName() +
+                " | Level: " + player.getLevel() +
+                " | XP: " + player.getCurrentXp() + "/" + player.getXpToNextLevel() +
                 " | HP: " + player.getCurrentHealth() + "/" + player.getMaxHealth() +
                 " | Mana: " + player.getCurrentMana() + "/" + player.getMaxMana() +
                 " | Weapon: " + weaponName);
+
         System.out.println(monster.getName() +
                 " | HP: " + monster.getCurrentHealth() + "/" + monster.getMaxHealth());
+
         System.out.println("---------------------\n");
     }
 

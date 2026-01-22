@@ -78,6 +78,8 @@ public class GameEngine {
     private void showPlayerStatus() {
         System.out.println("\n=== Character Status ===");
         System.out.println("Name:        " + player.getName());
+        System.out.println("Level: " + player.getLevel());
+        System.out.println("XP: " + player.getCurrentXp() + " / " + player.getXpToNextLevel());
         System.out.println("Vocation:    " + player.getClass().getSimpleName());
         System.out.println("HP:          " + player.getCurrentHealth() + "/" + player.getMaxHealth());
         System.out.println("Mana:        " + player.getCurrentMana() + "/" + player.getMaxMana());
@@ -101,18 +103,20 @@ public class GameEngine {
         while (running && player.isAlive()) {
             System.out.println("\nChoose an action:");
             System.out.println("1 - Explore");
-            System.out.println("2 - Exit");
+            System.out.println("2 - Show Player Status");
             System.out.println("3 - Visit Items Shop");
             System.out.println("4 - Visit Equipment Shop");
+            System.out.println("5 - Exit");
 
             System.out.print("Your option: ");
             String choice = scanner.nextLine();
 
             switch (choice) {
                 case "1" -> explore();
-                case "2" -> running = false;
+                case "2" -> showPlayerStatus();
                 case "3" -> visitItemShop();
                 case "4" -> visitEquipmentShop();
+                case "5" -> running = false;
                 default -> System.out.println("❌ Invalid option.");
             }
         }
@@ -193,7 +197,8 @@ public class GameEngine {
         String[] dialogues = {
                 "The deeper you go, the quieter the world becomes.",
                 "Gold fades. Wisdom doesn't.",
-                "The boss waits where the map ends."
+                "The boss waits where the map ends.",
+                "You must grow stronger before facing him..."
         };
 
         System.out.println("\n🧙 Old Eremo:");
@@ -218,6 +223,12 @@ public class GameEngine {
     }
 
     private void handleBoss() {
+        if (player.getLevel() < 2) {
+            System.out.println("\n⚠️ You feel you are not strong enough to face this foe. " +
+                    "Reach at least Level 2 before challenging the boss.\n");
+            return; // Sai do método, boss não aparece
+        }
+
         System.out.println("""
         
         👑 A dark presence overwhelms the air...

@@ -57,6 +57,9 @@ public abstract class Character {
     public int getGold() { return gold; }
     public Weapon getEquippedWeapon() {return equippedWeapon; }
     public Armor getEquippedArmor() { return equippedArmor; }
+    public int getLevel() { return level; }
+    public int getCurrentXp() { return currentXp; }
+    public int getXpToNextLevel() { return xpToNextLevel; }
 
     // ************** SPECIAL METHODS ************** //
 
