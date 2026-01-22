@@ -5,6 +5,7 @@ import com.terminalawakens.character.Druid;
 import com.terminalawakens.character.Sorcerer;
 import com.terminalawakens.creatures.Monster;
 import com.terminalawakens.util.LootGenerator;
+import com.terminalawakens.util.messages.Portraits;
 
 import java.util.Scanner;
 
@@ -16,6 +17,13 @@ public class CombatEngine {
 
         System.out.println("\n=== Battle Start ===");
         System.out.println(player.getName() + " vs. " + monster.getName() + "\n");
+
+        switch (monster.getName()) {
+            case "Dragon" -> System.out.println(Portraits.PortraitDragon());
+            case "Giant Spider" -> System.out.println(Portraits.PortraitGiantSpider());
+            case "Goblin" -> System.out.println(Portraits.PortraitGoblin());
+            case "Vampire" -> System.out.println(Portraits.PortraitVampire());
+        }
 
         while (player.isAlive() && monster.isAlive()) {
 

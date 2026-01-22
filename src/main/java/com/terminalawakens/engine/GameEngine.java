@@ -9,6 +9,7 @@ import com.terminalawakens.equipment.Weapon;
 import com.terminalawakens.items.Item;
 import com.terminalawakens.items.ItemFactory;
 import com.terminalawakens.shop.Shop;
+import com.terminalawakens.util.messages.Portraits;
 import com.terminalawakens.world.GameMap;
 import com.terminalawakens.world.Position;
 import com.terminalawakens.world.TileType;
@@ -234,6 +235,8 @@ public class GameEngine {
         👑 A dark presence overwhelms the air...
         This is it.
         """);
+
+        System.out.println(Portraits.PortraitTerminalOfVortex());
 
         CombatEngine.battle(player, MonsterFactory.spawnBoss());
 
