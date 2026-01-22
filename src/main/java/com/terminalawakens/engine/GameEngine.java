@@ -2,7 +2,6 @@ package com.terminalawakens.engine;
 
 import com.terminalawakens.character.*;
 import com.terminalawakens.character.Character;
-import com.terminalawakens.creatures.Monster;
 import com.terminalawakens.creatures.MonsterFactory;
 import com.terminalawakens.equipment.Armor;
 import com.terminalawakens.equipment.Equipment;
@@ -10,6 +9,9 @@ import com.terminalawakens.equipment.Weapon;
 import com.terminalawakens.items.Item;
 import com.terminalawakens.items.ItemFactory;
 import com.terminalawakens.shop.Shop;
+import com.terminalawakens.world.GameMap;
+import com.terminalawakens.world.Position;
+import com.terminalawakens.world.TileType;
 
 import java.util.List;
 import java.util.Scanner;
@@ -18,6 +20,15 @@ public class GameEngine {
 
     private Character player;
     private final Scanner scanner;
+    private GameMap gameMap = new GameMap();
+    private Position playerPosition = new Position(0, 0);
+
+    private static final String[] EMPTY_MESSAGES = {
+            "🌫️ The wind whispers ancient secrets...",
+            "🍃 The path is silent, yet uneasy...",
+            "🕯️ You feel like something is watching you...",
+            "🌑 Only darkness answers your steps..."
+    };
 
     public GameEngine() {
         this.scanner = new Scanner(System.in);
@@ -111,12 +122,115 @@ public class GameEngine {
 
     // ===================== Explore =====================
     private void explore() {
-        System.out.println("\n⚔️ You venture forward into the darkness...\n");
+        boolean exploring = true;
 
-        Monster monster = MonsterFactory.spawnRandomMonster();
-        System.out.println("⚔️ A wild " + monster.getName() + " appears!\n");
+        System.out.println("\n🧭 Use W A S D to move | Q to exit exploration");
 
-        CombatEngine.battle(player, monster);
+        while (exploring) {
+            gameMap.printMap(playerPosition.x, playerPosition.y);
+
+            System.out.print("Move: ");
+            String input = scanner.nextLine().toUpperCase();
+
+            int newX = playerPosition.x;
+            int newY = playerPosition.y;
+
+            switch (input) {
+                case "W" -> newY--;
+                case "S" -> newY++;
+                case "A" -> newX--;
+                case "D" -> newX++;
+                case "Q" -> exploring = false;
+                default -> {
+                    System.out.println("❌ Invalid command");
+                    continue;
+                }
+            }
+
+            if (newX < 0 || newY < 0 ||
+                    newX >= gameMap.getWidth() ||
+                    newY >= gameMap.getHeight()) {
+                System.out.println("⛔ You can't go there.");
+                continue;
+            }
+
+            playerPosition.x = newX;
+            playerPosition.y = newY;
+
+            TileType tile = gameMap.getTile(newX, newY);
+
+            switch (tile) {
+                case MONSTER -> handleMonster();
+                case LOOT -> handleLoot();
+                case NPC -> handleNpc();
+                case SHOP -> visitItemShop();
+                case EMPTY -> handleEmpty();
+                case BOSS -> {
+                    handleBoss();
+                    exploring = false; // encerra exploração
+                }
+            }
+        }
+    }
+
+    private void handleMonster() {
+        System.out.println("\n⚔️ You feel a hostile presence...\n");
+        CombatEngine.battle(player, MonsterFactory.spawnRandomMonster());
+
+        gameMap.clearTileIfConsumable(playerPosition.x, playerPosition.y);
+    }
+
+    private void handleLoot() {
+        Item loot = ItemFactory.getRandomLoot();
+        player.addItem(loot);
+
+        System.out.println("\n🎁 You found: " + loot.getName() + "\n");
+
+        gameMap.clearTileIfConsumable(playerPosition.x, playerPosition.y);
+    }
+
+    private void handleNpc() {
+        String[] dialogues = {
+                "The deeper you go, the quieter the world becomes.",
+                "Gold fades. Wisdom doesn't.",
+                "The boss waits where the map ends."
+        };
+
+        System.out.println("\n🧙 Old Eremo:");
+        String dialogue = dialogues[(int)(Math.random() * dialogues.length)];
+        System.out.println("\"" + dialogue + "\"\n");
+    }
+
+    private void handleEmpty() {
+        String msg = EMPTY_MESSAGES[
+                (int) (Math.random() * EMPTY_MESSAGES.length)
+                ];
+
+        System.out.println("\n" + msg + "\n");
+
+        double roll = Math.random();
+
+        if (roll < 0.10) {
+            handleMonster();
+        } else if (roll < 0.15) {
+            handleLoot();
+        }
+    }
+
+    private void handleBoss() {
+        System.out.println("""
+        
+        👑 A dark presence overwhelms the air...
+        This is it.
+        """);
+
+        CombatEngine.battle(player, MonsterFactory.spawnBoss());
+
+        if (player.isAlive()) {
+            System.out.println("🏆 You defeated the Terminal Of Vortex!");
+            System.out.println("✨ The world is free. You win!");
+            System.exit(0);
+        }
     }
 
     // ===================== Item Shop =====================

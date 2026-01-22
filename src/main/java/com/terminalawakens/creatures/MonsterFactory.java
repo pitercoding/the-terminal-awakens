@@ -21,17 +21,12 @@ public class MonsterFactory {
     }
 
     /**
-     * Gera um boss
+     * Gera o Boss Final
      */
-//    public static Monster spawnBoss() {
-//        // Criar o Boss Terminal of Vortex futuramente
-//        return new TerminalOfVortex();
-//    }
+    public static Monster spawnBoss() {
+        return new TerminalOfVortex();
+    }
 
-    /**
-     * Gera monstro baseado no nível do jogador
-     * Usado para ajustar dificuldade
-     */
     public static Monster spawnByLevel(int playerLevel) {
         int roll = random.nextInt(100); // 0 a 99
         if (playerLevel < 3) {

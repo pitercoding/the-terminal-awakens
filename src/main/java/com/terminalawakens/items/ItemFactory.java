@@ -5,8 +5,21 @@ import com.terminalawakens.equipment.Equipment;
 import com.terminalawakens.equipment.Weapon;
 
 import java.util.List;
+import java.util.Random;
 
 public class ItemFactory {
+
+    private static final Random random = new Random();
+
+    public static Item getRandomLoot() {
+        List<Item> lootPool = List.of(
+                new HealthPotion(30),
+                new ManaPotion(25),
+                new HealthPotion(50)
+        );
+
+        return lootPool.get(random.nextInt(lootPool.size()));
+    }
 
     public static List<Item> getShopItems() {
         return List.of(
