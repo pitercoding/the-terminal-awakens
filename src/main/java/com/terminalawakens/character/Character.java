@@ -247,5 +247,6 @@ public abstract class Character {
     public void addGold(int amount) {
         gold += amount;
         System.out.println("💰 " + name + " received " + amount + " gold.");
+        System.out.println();
     }
 }

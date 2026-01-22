@@ -9,7 +9,9 @@ import com.terminalawakens.equipment.Weapon;
 import com.terminalawakens.items.Item;
 import com.terminalawakens.items.ItemFactory;
 import com.terminalawakens.shop.Shop;
+import com.terminalawakens.util.messages.GameStart;
 import com.terminalawakens.util.messages.Portraits;
+import com.terminalawakens.util.messages.SlowConsole;
 import com.terminalawakens.world.GameMap;
 import com.terminalawakens.world.Position;
 import com.terminalawakens.world.TileType;
@@ -33,9 +35,8 @@ public class GameEngine {
 
     public GameEngine() {
         this.scanner = new Scanner(System.in);
-        createPlayer();
-        StarterVocationKit.applyKit(player);
-        showPlayerStatus();
+        this.gameMap = new GameMap();
+        this.playerPosition = new Position(0, 0);
     }
 
     // ===================== Player Creation =====================
@@ -79,8 +80,8 @@ public class GameEngine {
     private void showPlayerStatus() {
         System.out.println("\n=== Character Status ===");
         System.out.println("Name:        " + player.getName());
-        System.out.println("Level: " + player.getLevel());
-        System.out.println("XP: " + player.getCurrentXp() + " / " + player.getXpToNextLevel());
+        System.out.println("Level:       " + player.getLevel());
+        System.out.println("XP:          " + player.getCurrentXp() + " / " + player.getXpToNextLevel());
         System.out.println("Vocation:    " + player.getClass().getSimpleName());
         System.out.println("HP:          " + player.getCurrentHealth() + "/" + player.getMaxHealth());
         System.out.println("Mana:        " + player.getCurrentMana() + "/" + player.getMaxMana());
@@ -97,7 +98,14 @@ public class GameEngine {
 
     // ===================== Game Loop =====================
     public void start() {
-        System.out.println("\n=== The Terminal Awakens ===");
+        // 1. Mostra o título e lore do jogo antes de criar o personagem
+        GameStart.showTitle();
+        GameStart.startLore();
+
+        // 2. Cria o personagem
+        createPlayer();
+        StarterVocationKit.applyKit(player);
+        showPlayerStatus();
 
         boolean running = true;
 
@@ -236,7 +244,9 @@ public class GameEngine {
         This is it.
         """);
 
-        System.out.println(Portraits.PortraitTerminalOfVortex());
+        SlowConsole.printSlowly(Portraits.PortraitTerminalOfVortex(), 5);
+
+        GameStart.encounterTerminal();
 
         CombatEngine.battle(player, MonsterFactory.spawnBoss());
 
