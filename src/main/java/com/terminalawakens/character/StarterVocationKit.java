@@ -1,9 +1,6 @@
 package com.terminalawakens.character;
 
-import com.terminalawakens.equipment.Bow;
-import com.terminalawakens.equipment.Rod;
-import com.terminalawakens.equipment.Sword;
-import com.terminalawakens.equipment.Wand;
+import com.terminalawakens.equipment.*;
 import com.terminalawakens.items.HealthPotion;
 import com.terminalawakens.items.ManaPotion;
 
@@ -12,7 +9,7 @@ public class StarterVocationKit {
     public static void applyKit(Character character) {
 
         if (character instanceof Knight) {
-            character.equipWeapon(new Sword());
+            character.equipWeapon(new Club());
             character.addItem(new HealthPotion());
             character.addItem(new HealthPotion());
             character.addItem(new ManaPotion());

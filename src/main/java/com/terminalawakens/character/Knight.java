@@ -1,6 +1,10 @@
 package com.terminalawakens.character;
 
 import com.terminalawakens.creatures.Monster;
+import com.terminalawakens.equipment.Axe;
+import com.terminalawakens.equipment.Club;
+import com.terminalawakens.equipment.Sword;
+import com.terminalawakens.equipment.Weapon;
 
 public class Knight extends Character {
 
@@ -21,5 +25,12 @@ public class Knight extends Character {
         basicAttack += 3;
         specialAttack += 1;
         defense += 2;
+    }
+
+    @Override
+    public boolean canEquip(Weapon weapon) {
+        return weapon instanceof Sword
+                || weapon instanceof Axe
+                || weapon instanceof Club;
     }
 }

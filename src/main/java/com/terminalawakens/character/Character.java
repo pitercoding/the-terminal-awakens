@@ -25,6 +25,7 @@ public abstract class Character {
     protected String basicWeapon;
     protected Weapon equippedWeapon;
     protected Armor equippedArmor;
+    protected int gold;
 
 
     // =========== Constructor =========== //
@@ -42,6 +43,7 @@ public abstract class Character {
         this.xpToNextLevel = 100;
         this.inventory = new ArrayList<>();
         this.basicWeapon = "Fists"; // default
+        this.gold = 0;
     }
 
     // =========== Getters =========== //
@@ -54,11 +56,15 @@ public abstract class Character {
     public int getSpecialAttack() { return specialAttack; }
     public int getDefense() { return defense; }
     public String getBasicWeapon() { return basicWeapon; }
+    public int getGold() { return gold; }
 
     // =========== Setters =========== //
     public void setBasicWeapon(String weapon) { this.basicWeapon = weapon; }
 
-    // =========== Attack Methods =========== //
+
+    // ************** SPECIAL METHODS ************** //
+
+    // =========== Attack =========== //
     public void performBasicAttack(Monster target) {
         System.out.println("\n" + name + " attacks with " + basicWeapon + "!");
         target.takeDamage(basicAttack);
@@ -174,15 +180,27 @@ public abstract class Character {
     }
 
     // =========== Equipments =========== //
+    public boolean canEquip(Weapon weapon) {
+        return true; // padrão: pode usar qualquer arma
+    }
+
     public void equipWeapon(Weapon weapon) {
+
+        if (!canEquip(weapon)) {
+            System.out.println("❌ " + name + " cannot use " + weapon.getName());
+            return;
+        }
+
         if (equippedWeapon != null) {
+            System.out.println("🔁 Replacing weapon: " + equippedWeapon.getName());
             unequipWeapon();
         }
 
         equippedWeapon = weapon;
         basicAttack += weapon.getBonusAttack();
 
-        System.out.println("\n⚔️ Equipped weapon: " + weapon.getName());
+        System.out.println("\n⚔️ Equipped weapon: " + weapon.getName()
+                + " (ATK +" + weapon.getBonusAttack() + ")");
     }
 
     public void unequipWeapon() {
@@ -195,6 +213,7 @@ public abstract class Character {
 
     public void equipArmor(Armor armor) {
         if (equippedArmor != null) {
+            System.out.println("🔁 Replacing armor: " + equippedArmor.getName());
             unequipArmor();
         }
 
@@ -202,7 +221,9 @@ public abstract class Character {
         maxHealth += armor.getBonusHealth();
         defense += armor.getBonusDefense();
 
-        System.out.println("\n🛡️ Equipped armor: " + armor.getName());
+        System.out.println("\n🛡️ Equipped armor: " + armor.getName()
+                + " (HP +" + armor.getBonusHealth()
+                + ", DEF +" + armor.getBonusDefense() + ")");
     }
 
     public void unequipArmor() {
@@ -219,5 +240,9 @@ public abstract class Character {
         equippedArmor = null;
     }
 
-
+    // =========== Loots =========== //
+    public void addGold(int amount) {
+        gold += amount;
+        System.out.println("💰 " + name + " received " + amount + " gold.");
+    }
 }

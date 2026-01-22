@@ -4,6 +4,7 @@ import com.terminalawakens.character.Character;
 import com.terminalawakens.character.Druid;
 import com.terminalawakens.character.Sorcerer;
 import com.terminalawakens.creatures.Monster;
+import com.terminalawakens.util.LootGenerator;
 
 import java.util.Scanner;
 
@@ -78,10 +79,11 @@ public class CombatEngine {
         // Resultado do combate
         if (player.isAlive()) {
             System.out.println("🎉 " + player.getName() + " won the battle!");
+
             player.gainXp(monster.getXpReward());
-            System.out.println("💰 " + player.getName() + " earned " + monster.getGoldReward() + " gold.\n");
-        } else {
-            System.out.println("💀 " + player.getName() + " was defeated...");
+            player.addGold(monster.getGoldReward());
+
+            LootGenerator.generateLoot(player);
         }
     }
 

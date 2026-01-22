@@ -1,6 +1,9 @@
 package com.terminalawakens.character;
 
 import com.terminalawakens.creatures.Monster;
+import com.terminalawakens.equipment.Bow;
+import com.terminalawakens.equipment.Rod;
+import com.terminalawakens.equipment.Weapon;
 
 public class Druid extends Character {
 
@@ -39,4 +42,10 @@ public class Druid extends Character {
         specialAttack += 4;
         defense += 1;
     }
+
+    @Override
+    public boolean canEquip(Weapon weapon) {
+        return weapon instanceof Rod || weapon instanceof Bow;
+    }
+
 }

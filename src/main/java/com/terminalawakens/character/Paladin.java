@@ -1,6 +1,7 @@
 package com.terminalawakens.character;
 
 import com.terminalawakens.creatures.Monster;
+import com.terminalawakens.equipment.*;
 
 public class Paladin extends Character {
 
@@ -21,5 +22,12 @@ public class Paladin extends Character {
         basicAttack += 3;
         specialAttack += 1;
         defense += 2;
+    }
+
+    @Override
+    public boolean canEquip(Weapon weapon) {
+        return weapon instanceof Sword
+                || weapon instanceof Bow
+                || weapon instanceof Crossbow;
     }
 }
