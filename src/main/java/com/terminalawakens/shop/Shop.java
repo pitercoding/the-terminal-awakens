@@ -22,22 +22,35 @@ public class Shop {
         System.out.println("0 - Exit shop");
     }
 
-    public void buyItem(Character player, int choice) {
+    public void buyItem(Character player, int choice, int quantity) {
+
         if (choice < 1 || choice > availableItems.size()) {
-            System.out.println("❌ Invalid choice.");
+            System.out.println("❌ Invalid item choice.");
+            return;
+        }
+
+        if (quantity <= 0) {
+            System.out.println("❌ Quantity must be greater than zero.");
             return;
         }
 
         Item item = availableItems.get(choice - 1);
-        int price = itemPrices.get(choice - 1);
+        int unitPrice = itemPrices.get(choice - 1);
+        int totalPrice = unitPrice * quantity;
 
-        if (player.getGold() >= price) {
-            player.addItem(item);
-            player.addGold(-price);
-            System.out.println("✅ " + player.getName() + " bought " + item.getName() + " for " + price + " gold.");
-        } else {
+        if (player.getGold() < totalPrice) {
             System.out.println("❌ Not enough gold.");
+            return;
         }
+
+        for (int i = 0; i < quantity; i++) {
+            player.addItem(item);
+        }
+
+        player.addGold(-totalPrice);
+
+        System.out.println("✅ Bought " + quantity + "x " + item.getName()
+                + " for " + totalPrice + " gold.");
     }
 }
 
