@@ -203,7 +203,6 @@ public abstract class Character {
     }
 
     public void equipWeapon(Weapon weapon) {
-
         if (!canEquip(weapon)) {
             System.out.println("❌ " + name + " cannot use " + weapon.getName());
             System.out.println();
@@ -217,6 +216,7 @@ public abstract class Character {
 
         equippedWeapon = weapon;
         basicAttack += weapon.getBonusAttack();
+        specialAttack += weapon.getBonusAttack() / 2; // metade do bônus da arma
 
         System.out.println("\n⚔️ Equipped weapon: " + weapon.getName()
                 + " (ATK +" + weapon.getBonusAttack() + ")");
@@ -226,6 +226,7 @@ public abstract class Character {
         if (equippedWeapon == null) return;
 
         basicAttack -= equippedWeapon.getBonusAttack();
+        specialAttack -= equippedWeapon.getBonusAttack() / 2; // remove o bônus do Special também
         System.out.println("\n⚔️ Unequipped weapon: " + equippedWeapon.getName());
         equippedWeapon = null;
     }

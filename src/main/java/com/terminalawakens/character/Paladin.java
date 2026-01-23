@@ -6,7 +6,7 @@ import com.terminalawakens.equipment.*;
 public class Paladin extends Character {
 
     public Paladin(String name) {
-        super(name, 90, 60, 15, 17, 10);
+        super(name, 90, 60, 16, 17, 10);
     }
 
     @Override

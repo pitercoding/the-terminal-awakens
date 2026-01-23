@@ -10,7 +10,7 @@ public class Sorcerer extends Character {
     private boolean manaShieldActive = false;
 
     public Sorcerer(String name) {
-        super(name, 60, 110, 20, 25, 8);
+        super(name, 60, 110, 18, 25, 8);
     }
 
     @Override

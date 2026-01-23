@@ -9,7 +9,7 @@ import com.terminalawakens.equipment.Weapon;
 public class Knight extends Character {
 
     public Knight(String name) {
-        super(name, 120, 30, 10, 15, 15);
+        super(name, 120, 30, 13, 16, 15);
     }
 
     @Override

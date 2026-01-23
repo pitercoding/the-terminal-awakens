@@ -10,7 +10,7 @@ public class Druid extends Character {
     private boolean manaShieldActive = false;
 
     public Druid(String name) {
-        super(name, 70, 100, 15, 20, 10);
+        super(name, 70, 100, 16, 22, 10);
     }
 
     @Override
