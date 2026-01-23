@@ -38,17 +38,51 @@ It was also an opportunity to reinforce concepts like:
 
 ## 📸 Screenshots
 
-1. **Character Creation & Starter Kit**  
+Below are some screenshots showcasing key moments of **The Terminal Awakens** gameplay.
 
-2. **Combat Example**  
+### 1. 🖥️ Game Start — ANSI Title Screen
+The ANSI art displayed when the game starts, presenting the world of **The Terminal Awakens**.
 
-3. **Inventory View**  
+![Game Start](screenshots/game-start.png)
 
-4. **Map Exploration**  
+---
 
-5. **Boss Encounter**  
+### 2. 🧙 Character Creation & Starter Kit
+The beginning of the journey, where the player chooses a vocation and receives the starter equipment.
 
+![Character Creation](screenshots/character-creation.png)
 
+---
+
+### 3. ⚔️ Combat Example
+A turn-based combat scenario against common enemies.
+
+![Combat](screenshots/combat.png)
+
+![Combat 2](screenshots/combat2.png)
+
+---
+
+### 4. 🎒 Inventory View
+Viewing and using items such as Health and Mana Potions during gameplay.
+
+![Inventory View](screenshots/inventory-view.png)
+
+---
+
+### 5. 🗺️ Map Exploration
+Exploring the map, discovering paths, encounters, and hidden events.
+
+![Map Exploration](screenshots/map-exploration.png)
+
+---
+
+### 6. 🐉 Boss Encounter
+A dangerous boss fight that tests strategy, resource management, and survival.
+
+![Boss Encounter](screenshots/boss-terminal-of-vortex.png)
+
+ 
 ## 📚 Learning Points
 
 During development, these concepts were reinforced:
