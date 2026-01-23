@@ -197,6 +197,25 @@ public abstract class Character {
         item.use(this);
     }
 
+    public List<Class<? extends Item>> getInventoryItemTypes() {
+        return inventory.stream()
+                .map(Item::getClass)
+                .distinct()
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    public void useItemByType(Class<? extends Item> itemType) {
+        for (Item item : inventory) {
+            if (item.getClass().equals(itemType)) {
+                item.use(this);
+                inventory.remove(item);
+                return;
+            }
+        }
+
+        System.out.println("❌ You don't have this item.");
+    }
+
     // =========== Equipments =========== //
     public boolean canEquip(Weapon weapon) {
         return true; // padrão: pode usar qualquer arma

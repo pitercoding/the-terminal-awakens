@@ -58,6 +58,9 @@ public class CombatEngine {
                     }
 
                     player.showInventory();
+
+                    var itemTypes = player.getInventoryItemTypes();
+
                     System.out.print("Choose an item: ");
                     String itemInput = scanner.nextLine();
 
@@ -68,7 +71,14 @@ public class CombatEngine {
 
                     int itemChoice = Integer.parseInt(itemInput) - 1;
 
-                    player.useItem(itemChoice);
+                    if (itemChoice < 0 || itemChoice >= itemTypes.size()) {
+                        System.out.println("❌ Invalid item choice.\n");
+                        continue;
+                    }
+
+                    Class<? extends com.terminalawakens.items.Item> chosenType = itemTypes.get(itemChoice);
+                    player.useItemByType(chosenType);
+
                     System.out.println();
                     continue; // usar item não perde turno
                 }
