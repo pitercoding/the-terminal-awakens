@@ -25,13 +25,21 @@ public class Druid extends Character {
 
     @Override
     protected int applyManaShield(int damage) {
-        if (!manaShieldActive) return damage;
-        if (currentMana > 0) {
-            int manaAbsorb = Math.min(currentMana, damage);
-            currentMana -= manaAbsorb;
-            damage -= manaAbsorb;
+        if (!manaShieldActive || currentMana <= 0) return damage;
+
+        int absorbableDamage = (int) (damage * 0.70); // 70% absorção
+        int manaCost = Math.min(currentMana, absorbableDamage);
+
+        currentMana -= manaCost;
+
+        int finalDamage = damage - manaCost;
+
+        if (currentMana == 0) {
+            manaShieldActive = false;
+            System.out.println("🔮 Mana Shield broke!");
         }
-        return damage;
+
+        return finalDamage;
     }
 
     @Override

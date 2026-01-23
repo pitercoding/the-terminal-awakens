@@ -78,7 +78,7 @@ public class Portraits {
     public static String PortraitTerminalOfVortex() {
         return """
                      _________________________________
-                    / [ TERMINAL DO VORTEX : ONLINE ] \\
+                    / [ TERMINAL OF VORTEX : ONLINE ] \\
                    |===================================|
                    |  ~ ~~~  @@@@@@@@@@@@@@@  ~~~ ~    |
                    | ~  @@@@@@@XXXXXXXXXX@@@@@@@  ~    |

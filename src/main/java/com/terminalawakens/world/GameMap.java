@@ -10,11 +10,11 @@ import static com.terminalawakens.world.TileType.*;
  */
 public class GameMap {
     private final TileType[][] map = {
-            {EMPTY, MONSTER, SHOP, EMPTY, MONSTER, EMPTY},
-            {EMPTY, MONSTER, EMPTY, MONSTER, EMPTY, LOOT},
-            {MONSTER, LOOT, EMPTY, NPC, EMPTY, MONSTER},
-            {EMPTY, MONSTER, MONSTER, EMPTY, MONSTER, EMPTY},
-            {MONSTER, EMPTY, LOOT, MONSTER, EMPTY, MONSTER},
+            {EMPTY, MONSTER, EMPTY, MONSTER, LOOT, EMPTY},
+            {MONSTER, EMPTY, MONSTER, EMPTY, MONSTER, LOOT},
+            {EMPTY, LOOT, SHOP, NPC, MONSTER, EMPTY},
+            {MONSTER, EMPTY, MONSTER, EMPTY, LOOT, MONSTER},
+            {LOOT, MONSTER, EMPTY, MONSTER, EMPTY, MONSTER},
             {EMPTY, NPC, EMPTY, MONSTER, NPC, BOSS}
     };
 

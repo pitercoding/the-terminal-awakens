@@ -6,7 +6,9 @@ import com.terminalawakens.equipment.Weapon;
 import com.terminalawakens.items.Item;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Character {
 
@@ -155,20 +157,33 @@ public abstract class Character {
     // =========== Inventory =========== //
     public void addItem(Item item) {
         inventory.add(item);
-        System.out.println("\n📦 " + name + " obtained: " + item.getName());
     }
 
     public boolean hasItems() { return !inventory.isEmpty(); }
 
+    private Map<String, Integer> getInventorySummary() {
+        Map<String, Integer> summary = new LinkedHashMap<>();
+        for (Item item : inventory) {
+            summary.put(item.getName(), summary.getOrDefault(item.getName(), 0) + 1);
+        }
+        return summary;
+    }
+
     public void showInventory() {
         System.out.println("\n--- Inventory ---");
+
         if (inventory.isEmpty()) {
             System.out.println("Empty");
             return;
         }
-        for (int i = 0; i < inventory.size(); i++) {
-            System.out.println((i + 1) + " - " + inventory.get(i).getName());
+
+        Map<String, Integer> summary = getInventorySummary();
+        int index = 1;
+        for (Map.Entry<String, Integer> entry : summary.entrySet()) {
+            System.out.println(index + " - " + entry.getKey() + " x" + entry.getValue());
+            index++;
         }
+
         System.out.println("----------------\n");
     }
 

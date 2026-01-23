@@ -253,7 +253,7 @@ public class GameEngine {
         CombatEngine.battle(player, MonsterFactory.spawnBoss());
 
         if (player.isAlive()) {
-            System.out.println("🏆 You defeated the Terminal Of Vortex!");
+            System.out.println("🏆 You defeated the Terminal of Vortex!");
 
             // ================== LORE FINAL ==================
             GameEnd.finishTerminalOfVortex(player.getName());
