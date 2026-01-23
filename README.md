@@ -41,7 +41,7 @@ It was also an opportunity to reinforce concepts like:
 Below are some screenshots showcasing key moments of **The Terminal Awakens** gameplay.
 
 ### 1. 🖥️ Game Start — ANSI Title Screen
-The ANSI art displayed when the game starts, presenting the world of **The Terminal Awakens**.
+The ASCII art displayed when the game starts, presenting the world of **The Terminal Awakens**.
 
 ![Game Start](screenshots/game-start.png)
 
