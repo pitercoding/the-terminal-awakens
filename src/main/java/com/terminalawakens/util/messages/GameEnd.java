@@ -6,35 +6,34 @@ public class GameEnd {
      * Mostra a lore final após derrotar o Terminal of Vortex
      */
     public static void finishTerminalOfVortex(String playerName) {
-        // Primeira parte da lore com o nome do jogador
-        SlowConsole.printSlowly(
-                "* * * * * * * * * * * * * * * * * * * * * * * * * * * *\n" +
-                        "*   Congratulations, hero!                             *\n" +
-                        "*                                                      *\n" +
-                        "* The Terminal of Vortex has been vanquished, and the *\n" +
-                        "* labyrinth’s circuits return to peaceful silence.    *\n" +
-                        "*                                                      *\n" +
-                        "* Your courage, " + playerName + ", has rewritten the   *\n" +
-                        "* fate of this digital world.                           *\n" +
-                        "*                                                      *\n" +
-                        "* Monsters flee, treasures await, and echoes of your  *\n" +
-                        "* deeds will be remembered by every byte.             *\n" +
-                        "*                                                      *\n" +
-                        "* Take a moment to bask in your triumph, brave one.   *\n" +
-                        "* * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-        );
+        // Lore de vitória
+        SlowConsole.printSlowly(String.format("""
+                * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                *   Congratulations, hero!                                                               *
+                *                                                                                        *
+                * The Terminal of Vortex has been vanquished, and the labyrinth’s circuits return to     *
+                * peaceful silence.                                                                      *
+                *                                                                                        *
+                * Your courage, %s, has rewritten the fate of this digital world.                        *
+                *                                                                                        *
+                * Monsters flee, treasures await, and echoes of your deeds will be remembered by every  *
+                * byte.                                                                                  *
+                *                                                                                        *
+                * Take a moment to bask in your triumph, brave one.                                      *
+                * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                """, playerName));
+
+        System.out.println();
 
         // Lore final de agradecimento
-        SlowConsole.printSlowly(
-                "* * * * * * * * * * * * * * * * * * * * * * * * * * * *\n" +
-                        "*   Thank you for playing The Terminal Awakens!       *\n" +
-                        "*                                                      *\n" +
-                        "*   Your journey, courage, and wit brought life to    *\n" +
-                        "*   this digital adventure.                            *\n" +
-                        "*                                                      *\n" +
-                        "*   Until next time, " + playerName + ", the Terminal *\n" +
-                        "*   awaits your return...                              *\n" +
-                        "* * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-        );
+        SlowConsole.printSlowly(String.format("""
+                * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                *   Thank you for playing The Terminal Awakens!                                        *
+                *                                                                                        *
+                *   Your journey, courage, and wit brought life to this digital adventure.              *
+                *                                                                                        *
+                *   Until next time, %s, the Terminal awaits your return...                             *
+                * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                """, playerName));
     }
 }

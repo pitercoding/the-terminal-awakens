@@ -191,6 +191,7 @@ public abstract class Character {
 
         if (!canEquip(weapon)) {
             System.out.println("❌ " + name + " cannot use " + weapon.getName());
+            System.out.println();
             return;
         }
 
@@ -245,8 +246,13 @@ public abstract class Character {
 
     // =========== Loots =========== //
     public void addGold(int amount) {
+        if (amount > 0) {
+            System.out.println("💰 " + name + " received " + amount + " gold.");
+            System.out.println();
+        } else if (amount < 0) {
+            System.out.println("💰 " + name + " spent " + (-amount) + " gold.");
+            System.out.println();
+        }
         gold += amount;
-        System.out.println("💰 " + name + " received " + amount + " gold.");
-        System.out.println();
     }
 }

@@ -141,6 +141,7 @@ public class GameEngine {
         System.out.println("\n🧭 Use W A S D to move | Q to exit exploration");
 
         while (exploring) {
+            System.out.println();
             gameMap.printMap(playerPosition.x, playerPosition.y);
 
             System.out.print("Move: ");
@@ -272,16 +273,32 @@ public class GameEngine {
 
         while (shopping) {
             shop.showItems();
-            System.out.print("Your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // limpar buffer
+            System.out.print("Choose item (number) or 0 to exit: ");
+            String itemInput = scanner.nextLine();
 
-            if (choice == 0) {
+            if (!itemInput.matches("\\d+")) {
+                System.out.println("❌ Invalid input.\n");
+                continue;
+            }
+
+            int itemChoice = Integer.parseInt(itemInput);
+
+            if (itemChoice == 0) {
                 shopping = false;
                 continue;
             }
 
-            shop.buyItem(player, choice);
+            System.out.print("Quantity: ");
+            String qtyInput = scanner.nextLine();
+
+            if (!qtyInput.matches("\\d+")) {
+                System.out.println("❌ Invalid quantity.\n");
+                continue;
+            }
+
+            int quantity = Integer.parseInt(qtyInput);
+
+            shop.buyItem(player, itemChoice, quantity);
             System.out.println("💰 Current gold: " + player.getGold() + "\n");
         }
     }
@@ -289,39 +306,66 @@ public class GameEngine {
     // ===================== Equipment Shop =====================
     private void visitEquipmentShop() {
         List<Equipment> equipments = ItemFactory.getShopEquipments();
-        List<Integer> prices = ItemFactory.getShopPrices().subList(ItemFactory.getShopItems().size(), ItemFactory.getShopPrices().size());
+        List<Integer> prices = ItemFactory.getShopPrices()
+                .subList(ItemFactory.getShopItems().size(), ItemFactory.getShopPrices().size());
 
         boolean shopping = true;
 
         System.out.println("\n🛡️ === Welcome to the Equipment Shop ===");
 
         while (shopping) {
+
             for (int i = 0; i < equipments.size(); i++) {
-                System.out.printf("%d - %-15s | Price: %d gold%n", i + 1, equipments.get(i).getName(), prices.get(i));
+                System.out.printf(
+                        "%d - %-15s | Price: %d gold%n",
+                        i + 1,
+                        equipments.get(i).getName(),
+                        prices.get(i)
+                );
             }
+
             System.out.println("0 - Exit shop");
             System.out.print("Your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // limpar buffer
+
+            String input = scanner.nextLine();
+
+            if (!input.matches("\\d+")) {
+                System.out.println("❌ Invalid input.\n");
+                continue;
+            }
+
+            int choice = Integer.parseInt(input);
 
             if (choice == 0) {
                 shopping = false;
                 continue;
             }
 
+            if (choice < 1 || choice > equipments.size()) {
+                System.out.println("❌ Invalid choice.\n");
+                continue;
+            }
+
             Equipment equipment = equipments.get(choice - 1);
             int price = prices.get(choice - 1);
 
-            if (player.getGold() >= price) {
-                if (equipment instanceof Weapon w) player.equipWeapon(w);
-                else if (equipment instanceof Armor a) player.equipArmor(a);
-                player.addGold(-price);
-                System.out.println("✅ " + player.getName() + " bought " + equipment.getName() + " for " + price + " gold.");
-                System.out.println("💰 Current gold: " + player.getGold() + "\n");
-            } else {
+            if (player.getGold() < price) {
                 System.out.println("❌ Not enough gold.");
                 System.out.println("💰 Current gold: " + player.getGold() + "\n");
+                continue;
             }
+
+            if (equipment instanceof Weapon w) {
+                player.equipWeapon(w);
+            } else if (equipment instanceof Armor a) {
+                player.equipArmor(a);
+            }
+
+            player.addGold(-price);
+
+            System.out.println("✅ " + player.getName() + " bought "
+                    + equipment.getName() + " for " + price + " gold.");
+            System.out.println("💰 Current gold: " + player.getGold() + "\n");
         }
     }
 }

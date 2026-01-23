@@ -31,7 +31,13 @@ public class CombatEngine {
             showStatus(player, monster);
             showCombatMenu();
 
-            int choice = scanner.nextInt();
+            String input = scanner.nextLine();
+            if (!input.matches("[1-5]")) {
+                System.out.println("\n❌ Invalid option. Choose a number between 1 and 5.\n");
+                continue; // volta pro menu sem perder turno
+            }
+
+            int choice = Integer.parseInt(input);
             System.out.println();
 
             switch (choice) {
@@ -53,10 +59,18 @@ public class CombatEngine {
 
                     player.showInventory();
                     System.out.print("Choose an item: ");
-                    int itemChoice = scanner.nextInt() - 1;
+                    String itemInput = scanner.nextLine();
+
+                    if (!itemInput.matches("\\d+")) {
+                        System.out.println("❌ Invalid item choice.\n");
+                        continue;
+                    }
+
+                    int itemChoice = Integer.parseInt(itemInput) - 1;
+
                     player.useItem(itemChoice);
                     System.out.println();
-                    continue; // Using an item does NOT lose a turn
+                    continue; // usar item não perde turno
                 }
                 case 4 -> {
                     if (player instanceof Sorcerer sorcerer) sorcerer.toggleManaShield();
