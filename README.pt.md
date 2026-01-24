@@ -42,7 +42,7 @@ Também serviu para reforçar conceitos como:
 
 Abaixo estão algumas capturas de tela mostrando momentos importantes da jogabilidade de **The Terminal Awakens**.
 
-### 1. 🖥️ Início do Jogo — Tela ANSI
+### 1. 🖥️ Início do Jogo — Tela ASCII
 Arte em ASCII exibida ao iniciar o jogo, apresentando o mundo de **The Terminal Awakens**.
 
 ![Game Start](screenshots/game-start.png)
@@ -179,3 +179,4 @@ Este projeto está sob a licença **MIT**. Sinta-se à vontade para usar, estuda
 **Piter Gomes** — Aluno de Ciências da Computação (6º Semestre) & Desenvolvedor Full-Stack
 
 📧 [Email](mailto:piterg.bio@gmail.com) | 💼 [LinkedIn](https://www.linkedin.com/in/piter-gomes-4a39281a1/) | 💻 [GitHub](https://github.com/pitercoding) | 🌐 [Portfolio](https://portfolio-pitergomes.vercel.app/)
+
